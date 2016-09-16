@@ -21,7 +21,7 @@ class routing (
     default  => '::openbgpd',
   }
 
-  # The zone_status_errors fact comes from puppet-dns
+  #The zone_status_errors fact comes from puppet-dns
   if $::zone_status_errors == true or $::zone_status_errors == 'true' {
     $_failover_server = true
   } else {
