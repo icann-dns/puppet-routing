@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
-require 'shared_contexts'
 
 describe 'routing' do
   # by default the hiera integration uses hiera data from the shared_contexts.rb file

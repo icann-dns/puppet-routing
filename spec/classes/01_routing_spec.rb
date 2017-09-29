@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
-require 'shared_contexts'
 
 describe 'routing' do
   # by default the hiera integration uses hiera data from the shared_contexts.rb file
@@ -7,7 +8,7 @@ describe 'routing' do
   # to the specific context in the spec/shared_contexts.rb file
   # Note: you can only use a single hiera context per describe/context block
   # rspec-puppet does not allow you to swap out hiera data on a per test block
-  #include_context :hiera
+  # include_context :hiera
   let(:node) { 'routing.example.com' }
 
   # below is the facts hash that gives you the ability to mock
@@ -22,30 +23,32 @@ describe 'routing' do
   # while all required parameters will require you to add a value
   let(:params) do
     {
-      :my_asn => 64496,
-      :router_id => '192.0.2.2',
-      #:daemon => "$::routing::params::daemon",
-      :networks4 => ['192.0.2.0/25'],
-      :networks6 => ['2001:DB8::/48'],
-      :failsafe_networks4 => ['192.0.2.0/24'],
-      :failsafe_networks6 => ['2001:DB8::/32'],
-      #:failover_server => false,
-      #:enable_advertisements => true,
-      #:enable_advertisements_v4 => true,
-      #:enable_advertisements_v6 => true,
-      #:peers => {},
-      #:enable_nagios => false
+      my_asn: 64496,
+      router_id: '192.0.2.2',
+      # :daemon => "$::routing::params::daemon",
+      networks4: ['192.0.2.0/25'],
+      networks6: ['2001:DB8::/48'],
+      failsafe_networks4: ['192.0.2.0/24'],
+      failsafe_networks6: ['2001:DB8::/32'],
+      # :failover_server => false,
+      # :enable_advertisements => true,
+      # :enable_advertisements_v4 => true,
+      # :enable_advertisements_v6 => true,
+      # :peers => {},
+      # :enable_nagios => false
 
     }
   end
+
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({ "zone_status_errors" => false })
+        facts.merge(zone_status_errors: false)
       end
+
       case facts[:kernel]
       when 'FreeBSD'
         let(:routing_class) { 'openbgpd' }
