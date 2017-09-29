@@ -22,6 +22,18 @@ matrix:
   - rvm: 2.2
     env: CHECK=rubocop
   include:
+  - rvm: 2.3
+    bundler_args: --without development
+    dist: trusty
+    env: BEAKER_TESTMODE=apply BEAKER_set=docker/ubuntu-multi-14.04 CHECK=beaker
+    services: docker
+    sudo: required
+  - rvm: 2.3
+    bundler_args: --without development
+    dist: trusty
+    env: BEAKER_TESTMODE=apply BEAKER_set=docker/ubuntu-multi-16.04 CHECK=beaker
+    services: docker
+    sudo: required
   - rvm: 2.4.0
     env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
 notifications:
@@ -32,7 +44,7 @@ deploy:
     branch: ha-bug-puppet-forge
   user: icann
   password:
-    secure: ""
+    secure: "gV2XYFvjCEy78mME6sSO62RtShuxVPAHQ9WiQS5rweCHKQXI8y1HPtw1n3qoGdFjCZ/s5DB3/O7kJMlbKnv27/ZV9ukZUVpfAHESSYlQyK1FNMoArKf8Ep47HEkLSgsHP7XV8YcKojckOLUsGJVqAXDzXotakl0gniiyPiYFRRz+BEm4W+cPyiq06GXgC6CUCYzbA8varbhxHSmLBJICEUk3+2WGMBiejhcAXZhl7Bklgi/zwQduCaqY5Zud95nEYTxBdAjFBEYm2EHz4OMIDGg3tIZpB78gdPDXmeFbq2B61ar8eqpvjkfeuLqsyYgj0Uka5qBEcMvV2ZqHLAGIlevQ53PdLPbF3mSA40EgdWkktSBLekRmdCTEUHYLOSYSYWz6R0EE+yPn6Tj45YyFk04bRl/kiaN24Yd/hsGbJvwzQxMCSyDHDlIDb8FetaVZ6NT0gWEOQaPEV8W+EyTteSbfVuN7sQrPr1dW4RDDI63brL7Jni4vQEvGyOURCpzbzlw4n5ZWYf/BtXz8MCatwMeMPLxF2z1sGkss3wrSq1aC/cKPFHNeAl0B+IVhMCaI+G2aMWd3odqcNimhakS9SyM89HHkoTerMv3HJUAGQgDFW0wyBuueEG9Oy21yiD2q1dFlfUFGvMQWQHdc9rQhnVGgj2ja/VoP4QeGizXcQ4Y="
   on:
     tags: true
     # all_branches is required to use tags
