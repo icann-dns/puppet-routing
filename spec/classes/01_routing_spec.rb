@@ -23,7 +23,7 @@ describe 'routing' do
   # while all required parameters will require you to add a value
   let(:params) do
     {
-      my_asn: 64496,
+      my_asn: 64_496,
       router_id: '192.0.2.2',
       # :daemon => "$::routing::params::daemon",
       networks4: ['192.0.2.0/25'],
@@ -55,148 +55,175 @@ describe 'routing' do
       else
         let(:routing_class) { 'quagga::bgpd' }
       end
+
       describe 'check default config' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('routing::params') }
-
-        
-  it do
-    is_expected.to contain_class(routing_class)
-        .with({
-          "my_asn" => 64496,
-          "router_id" => '192.0.2.2',
-          "networks4" => ['192.0.2.0/25'],
-          "networks6" => ['2001:DB8::/48'],
-          "failsafe_networks4" => ['192.0.2.0/24'],
-          "failsafe_networks6" => ['2001:DB8::/32'],
-          "failover_server" => false,
-          "enable_advertisements" => true,
-          "enable_advertisements_v4" => true,
-          "enable_advertisements_v6" => true,
-          "peers" => {},
-          })
-  end
-  
+        it do
+          is_expected.to contain_class(routing_class).with(
+            my_asn: 64_496,
+            router_id: '192.0.2.2',
+            networks4: ['192.0.2.0/25'],
+            networks6: ['2001:DB8::/48'],
+            failsafe_networks4: ['192.0.2.0/24'],
+            failsafe_networks6: ['2001:DB8::/32'],
+            failover_server: false,
+            enable_advertisements: true,
+            enable_advertisements_v4: true,
+            enable_advertisements_v6: true,
+            peers: {}
+          )
+        end
       end
       describe 'Change Defaults' do
         context 'my_asn' do
-          before { params.merge!( my_asn: 64497 ) }
+          before { params.merge!(my_asn: 64_497) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "my_asn" => 64497 })}
+          it { is_expected.to contain_class(routing_class).with(my_asn: 64_497) }
         end
         context 'router_id' do
-          before { params.merge!( router_id: '192.0.2.3' ) }
+          before { params.merge!(router_id: '192.0.2.3') }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "router_id" => '192.0.2.3' })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              router_id: '192.0.2.3'
+            )
+          end
         end
         context 'networks4' do
-          before { params.merge!( networks4: ['192.0.2.0/23'] ) }
+          before { params.merge!(networks4: ['192.0.2.0/23']) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "networks4" => ['192.0.2.0/23'] })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              networks4: ['192.0.2.0/23']
+            )
+          end
         end
         context 'networks6' do
-          before { params.merge!( networks6: ['2001:DB8::/47'] ) }
+          before { params.merge!(networks6: ['2001:DB8::/47']) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "networks6" => ['2001:DB8::/47'] })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              networks6: ['2001:DB8::/47']
+            )
+          end
         end
         context 'failsafe_networks4' do
-          before { params.merge!( failsafe_networks4: ['192.0.2.0/23'] ) }
+          before { params.merge!(failsafe_networks4: ['192.0.2.0/23']) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "failsafe_networks4" => ['192.0.2.0/23'] })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              failsafe_networks4: ['192.0.2.0/23']
+            )
+          end
         end
         context 'failsafe_networks6' do
-          before { params.merge!( failsafe_networks6: ['2001:DB8::/47'] ) }
+          before { params.merge!(failsafe_networks6: ['2001:DB8::/47']) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "failsafe_networks6" => ['2001:DB8::/47'] })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              failsafe_networks6: ['2001:DB8::/47']
+            )
+          end
         end
         context 'failover_server' do
-          before { params.merge!( failover_server: true ) }
+          before { params.merge!(failover_server: true) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "failover_server" => true })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              failover_server: true
+            )
+          end
         end
         context 'failover_server' do
-          let(:facts) {facts.merge({ "zone_status_errors" => true })}
+          let(:facts) { facts.merge(zone_status_errors: true) }
+
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "failover_server" => true })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              failover_server: true
+            )
+          end
         end
         context 'enable_advertisements' do
-          before { params.merge!( enable_advertisements: false ) }
+          before { params.merge!(enable_advertisements: false) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "enable_advertisements" => false })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              enable_advertisements: false
+            )
+          end
         end
         context 'enable_advertisements_v4' do
-          before { params.merge!( enable_advertisements_v4: false ) }
+          before { params.merge!(enable_advertisements_v4: false) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "enable_advertisements_v4" => false })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              enable_advertisements_v4: false
+            )
+          end
         end
         context 'enable_advertisements_v6' do
-          before { params.merge!( enable_advertisements_v6: false ) }
+          before { params.merge!(enable_advertisements_v6: false) }
           it { is_expected.to compile }
-          it { is_expected.to contain_class(routing_class).with({
-            "enable_advertisements_v6" => false })}
+          it do
+            is_expected.to contain_class(routing_class).with(
+              enable_advertisements_v6: false
+            )
+          end
         end
         context 'enable_nagios' do
-          before { params.merge!( enable_nagios: true ) }
+          before { params.merge!(enable_nagios: true) }
           it { is_expected.to compile }
         end
       end
       describe 'check bad type' do
         context 'my_asn' do
-          before { params.merge!( my_asn: true ) }
+          before { params.merge!(my_asn: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'router_id' do
-          before { params.merge!( outer_id: true ) }
+          before { params.merge!(outer_id: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'daemon' do
-          before { params.merge!( daemon: true ) }
+          before { params.merge!(daemon: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'networks4' do
-          before { params.merge!( networks4: true ) }
+          before { params.merge!(networks4: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'networks6' do
-          before { params.merge!( networks6: true ) }
+          before { params.merge!(networks6: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'failsafe_networks4' do
-          before { params.merge!( failsafe_networks4: true ) }
+          before { params.merge!(failsafe_networks4: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'failsafe_networks6' do
-          before { params.merge!( failsafe_networks6: true ) }
+          before { params.merge!(failsafe_networks6: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'failover_server' do
-          before { params.merge!( failover_server: 'foobar' ) }
+          before { params.merge!(failover_server: 'foobar') }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'enable_advertisements' do
-          before { params.merge!( enable_advertisements: 'foobar' ) }
+          before { params.merge!(enable_advertisements: 'foobar') }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'enable_advertisements_v4' do
-          before { params.merge!( enable_advertisements_v4: 'foobar' ) }
+          before { params.merge!(enable_advertisements_v4: 'foobar') }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'enable_advertisements_v6' do
-          before { params.merge!( enable_advertisements_v6: 'foobar' ) }
+          before { params.merge!(enable_advertisements_v6: 'foobar') }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
         context 'peers' do
-          before { params.merge!( peers: true ) }
+          before { params.merge!(peers: true) }
           it { expect { subject.call }.to raise_error(Puppet::Error) }
         end
       end
