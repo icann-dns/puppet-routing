@@ -103,20 +103,20 @@ describe 'routing' do
           before { params.merge!( enable_nagios: true ) }
           it { is_expected.to compile }
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.2',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.2!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.3',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.3!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_2001:DB8::2',
               check_command: 'check_nrpe_args!check_bgp!2001:DB8::2!2001:DB8::/48 2001:DB8::/32',
           )}
@@ -125,20 +125,20 @@ describe 'routing' do
           before { params.merge!( enable_nagios: true, failover_server: true ) }
           it { is_expected.to compile }
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.2',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.2!192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.3',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.3!192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_2001:DB8::2',
               check_command: 'check_nrpe_args!check_bgp!2001:DB8::2!2001:DB8::/32',
           )}
@@ -148,20 +148,20 @@ describe 'routing' do
                                  enable_advertisements: false ) }
           it { is_expected.to compile }
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.2',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.2!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.3',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.3!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_2001:DB8::2',
               check_command: 'check_nrpe_args!check_bgp!2001:DB8::2!2001:DB8::/48 2001:DB8::/32',
           )}
@@ -171,20 +171,20 @@ describe 'routing' do
                                 enable_advertisements_v4: false) }
           it { is_expected.to compile }
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.2',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.2!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.3',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.3!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_2001:DB8::2',
               check_command: 'check_nrpe_args!check_bgp!2001:DB8::2!2001:DB8::/48 2001:DB8::/32',
           )}
@@ -194,20 +194,20 @@ describe 'routing' do
                                 enable_advertisements_v6: false) }
           it { is_expected.to compile }
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.2',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.2!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_192.0.2.3').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_192.0.2.3',
               check_command: 'check_nrpe_args!check_bgp!192.0.2.3!192.0.2.0/25 192.0.2.0/24',
           )}
           it { expect(exported_resources).to_not contain_nagios_service(
-            'foo.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
-              host_name: 'foo.example.com',
+            'routing.example.com_BGP_NEIGHBOUR_2001:DB8::2').with(
+              host_name: 'routing.example.com',
               service_description: 'BGP_NEIGHBOUR_2001:DB8::2',
               check_command: 'check_nrpe_args!check_bgp!2001:DB8::2!2001:DB8::/48 2001:DB8::/32',
           )}

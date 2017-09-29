@@ -2,21 +2,14 @@ fixtures:
     symlinks:
       routing: "#{source_dir}"
     repositories:
-      stdlib:
-        repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
-        ref: 4.12.0
-      tea:
-        repo: https://github.com/icann-dns/puppet-tea.git
-        ref: 0.2.2
+      stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+      tea: https://github.com/icann-dns/puppet-tea.git
+      concat: https://github.com/puppetlabs/puppetlabs-concat
+      inifile: https://github.com/puppetlabs/puppetlabs-inifile
+      logrotate: https://github.com/icann-dns/puppet-logrotate
       quagga:
         repo: https://github.com/icann-dns/puppet-quagga.git
-        ref: 0.3.1
+        ref: add_rejected_routes
       openbgpd:
         repo: https://github.com/icann-dns/puppet-openbgpd.git
-        ref: 0.1.0
-      concat:
-        repo: https://github.com/puppetlabs/puppetlabs-concat
-      inifile:
-        repo: https://github.com/puppetlabs/puppetlabs-inifile
-      logrotate:
-        repo: https://github.com/yo61/puppet-logrotate
+        ref: add_rejected_routes
