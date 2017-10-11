@@ -22,18 +22,6 @@ matrix:
   - rvm: 2.2
     env: CHECK=rubocop
   include:
-  - rvm: 2.3
-    bundler_args: --without development
-    dist: trusty
-    env: BEAKER_TESTMODE=apply BEAKER_set=docker/ubuntu-multi-14.04 CHECK=beaker
-    services: docker
-    sudo: required
-  - rvm: 2.3
-    bundler_args: --without development
-    dist: trusty
-    env: BEAKER_TESTMODE=apply BEAKER_set=docker/ubuntu-multi-16.04 CHECK=beaker
-    services: docker
-    sudo: required
   - rvm: 2.4.0
     env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
 notifications:
