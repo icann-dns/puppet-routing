@@ -7,9 +7,5 @@ fixtures:
       concat: https://github.com/puppetlabs/puppetlabs-concat
       inifile: https://github.com/puppetlabs/puppetlabs-inifile
       logrotate: https://github.com/icann-dns/puppet-logrotate
-      quagga:
-        repo: https://github.com/icann-dns/puppet-quagga.git
-        branch: add_rejected_routes
-      openbgpd:
-        repo: https://github.com/icann-dns/puppet-openbgpd.git
-        branch: add_rejected_routes
+      quagga: https://github.com/icann-dns/puppet-quagga.git
+      openbgpd: https://github.com/icann-dns/puppet-openbgpd.git
