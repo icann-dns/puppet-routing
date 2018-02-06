@@ -11,7 +11,8 @@ modules = [
   'puppetlabs-concat',
   'puppetlabs-inifile',
   'icann-tea',
-  'puppet-logrotate'
+  'puppet-logrotate',
+  'puppet-openbgpd'
 ]
 # git_repos = []
 git_repos = [
