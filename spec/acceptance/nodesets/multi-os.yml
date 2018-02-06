@@ -19,7 +19,7 @@ HOSTS:
     platform: ubuntu-16.04-amd64
     box: puppetlabs/ubuntu-16.04-64-nocm
     ip: 10.255.255.3
-  quagga-trusty:
+  quagga-trusty-router3:
     default_apply_opts:
       strict_variables:
     roles:
