@@ -2,7 +2,7 @@
 
 require 'spec_helper_acceptance'
 
-describe 'openbgpd class multi peers' do
+describe 'routing class multi peers' do
   router1 = find_host_with_role(:router1)
   router2 = find_host_with_role(:router2)
   router3 = find_host_with_role(:router3)
@@ -24,7 +24,7 @@ describe 'openbgpd class multi peers' do
   on(router3, "ip -6 addr add #{router3_ip6}/64 dev eth1", acceptable_exit_codes: [0, 2])
   context 'basic' do
     pp1 = <<-PUPPET_POLICY
-    class { '::openbgpd':
+    class { '::routing':
       my_asn => #{router1_asn},
       router_id => '#{router1_ip}',
       networks4 => [ '#{ipv4_network}'],
@@ -44,7 +44,7 @@ describe 'openbgpd class multi peers' do
     }
     PUPPET_POLICY
     pp2 = <<-PUPPET_POLICY
-    class { '::openbgpd':
+    class { '::routing':
       my_asn => #{router2_asn},
       router_id => '#{router2_ip}',
       networks4 => [ '#{ipv4_network}'],
@@ -59,7 +59,7 @@ describe 'openbgpd class multi peers' do
     }
     PUPPET_POLICY
     pp3 = <<-PUPPET_POLICY
-    class { '::openbgpd':
+    class { '::routing':
       my_asn => #{router3_asn},
       router_id => '#{router3_ip}',
       networks4 => [ '#{ipv4_network}'],

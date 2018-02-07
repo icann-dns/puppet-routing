@@ -11,22 +11,9 @@ modules = [
   'puppetlabs-concat',
   'puppetlabs-inifile',
   'icann-tea',
-  'puppet-logrotate',
-  'puppet-openbgpd'
+  'puppet-logrotate'
 ]
-# git_repos = []
-git_repos = [
-  {
-    mod: 'quagga',
-    branch: 'add_rejected_routes',
-    repo: 'https://github.com/icann-dns/puppet-quagga'
-  },
-  {
-    mod: 'openbgpd',
-    branch: 'add_rejected_routes',
-    repo: 'https://github.com/icann-dns/puppet-openbgpd'
-  }
-]
+git_repos = []
 def install_modules(host, modules, git_repos)
   module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
   install_dev_puppet_module_on(host, source: module_root)
@@ -80,6 +67,11 @@ else
       puppet_agent_version: '1.6.1',
       default_action: 'gem_install'
     )
+    if host['platform'] =~ %r{freebsd}
+      install_modules(host, ['icann-openbgpd'], git_repos)
+    else
+      install_modules(host, ['icann-quagga'], git_repos)
+    end
     install_modules(host, modules, git_repos)
   end
 end

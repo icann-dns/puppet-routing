@@ -87,6 +87,8 @@ describe 'openbgpd class ACLs ' do
       its(:exit_status) { is_expected.to eq 0 }
     end
     describe command("bgpctl show neighbor #{router2_ip}") do
+      let(:pre_command) { 'sleep 5' }
+
       its(:stdout) do
         is_expected.to match(
           %r{BGP neighbor is #{router2_ip}, remote AS #{router2_asn}.*?Established}m
@@ -94,6 +96,8 @@ describe 'openbgpd class ACLs ' do
       end
     end
     describe command("bgpctl show neighbor #{router2_ip6}") do
+      let(:pre_command) { 'sleep 5' }
+
       its(:stdout) do
         is_expected.to match(
           %r{BGP neighbor is #{router2_ip6}, remote AS #{router2_asn}.*?Established}m
