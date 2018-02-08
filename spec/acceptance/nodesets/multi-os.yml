@@ -17,7 +17,7 @@ HOSTS:
       - router2
     hypervisor: vagrant
     platform: ubuntu-16.04-amd64
-    box: puppetlabs/ubuntu-16.04-64-nocm
+    box: puppetlabs/ubuntu-16.04-64-puppet
     ip: 10.255.255.3
   quagga-trusty-router3:
     default_apply_opts:
