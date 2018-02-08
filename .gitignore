@@ -1,3 +1,5 @@
+*.lock
+log/
 .*.sw?
 pkg
 spec/fixtures
