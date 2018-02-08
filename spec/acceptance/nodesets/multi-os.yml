@@ -1,0 +1,35 @@
+---
+HOSTS:
+  openbgd-bsd-router1:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - default
+      - router1
+    platform: freebsd-103-amd64
+    hypervisor: vagrant
+    box: bento/freebsd-10.3
+    ip: 10.255.255.2
+  quagga-xenial-router2:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - router2
+    hypervisor: vagrant
+    platform: ubuntu-16.04-amd64
+    box: puppetlabs/ubuntu-16.04-64-puppet
+    ip: 10.255.255.3
+  quagga-trusty-router3:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - router3
+    hypervisor: vagrant
+    platform: ubuntu-14.04-amd64
+    box: puppetlabs/ubuntu-14.04-64-nocm
+    ip: 10.255.255.4
+CONFIG:
+  trace_limit: 200
+  masterless: true
+...
+# vim: syntax=yaml

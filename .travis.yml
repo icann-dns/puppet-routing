@@ -1,42 +1,41 @@
 ---
 sudo: false
+dist: trusty
 language: ruby
-cache: bundler
-bundler_args: --without system_tests
-script: "bundle exec rake validate lint spec"
-before_deploy:
-- rvm 1.9.3 do gem install mime-types -v 2.6.2
+#cache: bundler
+bundler_args: --without system_tests development
+before_install:
+  - bundle -v
+  - rm Gemfile.lock || true
+  - gem update --system
+  - gem update bundler
+  - gem --version
+  - bundle -v
+script:
+  - 'bundle exec rake $CHECK'
+env: ["CHECK=rubocop", "PUPPET_VERSION=\"~> 4.6.0\" STRICT_VARIABLES=yes CHECK=test", "PUPPET_VERSION=\"~> 4.7.0\" STRICT_VARIABLES=yes CHECK=test", "PUPPET_VERSION=\"~> 4.8.0\" STRICT_VARIABLES=yes CHECK=test", "PUPPET_VERSION=\"~> 4.9.0\" STRICT_VARIABLES=yes CHECK=test", "PUPPET_VERSION=\"~> 4.10.0\" STRICT_VARIABLES=yes CHECK=test", "PUPPET_VERSION=\"~> 5.0.0\" STRICT_VARIABLES=yes CHECK=test"]
+rvm: [2.2, 2.3, 2.4]
 matrix:
   fast_finish: true
+ 
+  exclude:
+  - rvm: 2.2
+    env: CHECK=rubocop
   include:
-  #vagrant not supported yet
-  #- rvm: 1.9.3
-  #  env: BEAKER_set="freebsd-10.2"
-  #  sudo: required
-  #  services:
-  #  - vagrant
-  #  script: bundle exec rake beaker
-  - rvm: 2.2.0
-    env: BEAKER_set="docker/ubuntu-14.04"
-    sudo: required
-    services:
-    - docker
-    script: bundle exec rake beaker
-  - rvm: 2.2.0
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES="yes"
-  - rvm: 2.2.0
-    env: PUPPET_GEM_VERSION="~> 4.6.1" STRICT_VARIABLES="yes"
-  - rvm: 2.1.6
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES="yes"
-  - rvm: 2.1.6
-    env: PUPPET_GEM_VERSION="~> 4.6.1" STRICT_VARIABLES="yes"
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES="yes"
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.6.1" STRICT_VARIABLES="yes"
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES="yes"
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 4.6.1" STRICT_VARIABLES="yes"
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
 notifications:
   email: false
+deploy:
+  provider: puppetforge
+  deploy:
+    branch: ha-bug-puppet-forge
+  user: icann
+  password:
+    secure: "gV2XYFvjCEy78mME6sSO62RtShuxVPAHQ9WiQS5rweCHKQXI8y1HPtw1n3qoGdFjCZ/s5DB3/O7kJMlbKnv27/ZV9ukZUVpfAHESSYlQyK1FNMoArKf8Ep47HEkLSgsHP7XV8YcKojckOLUsGJVqAXDzXotakl0gniiyPiYFRRz+BEm4W+cPyiq06GXgC6CUCYzbA8varbhxHSmLBJICEUk3+2WGMBiejhcAXZhl7Bklgi/zwQduCaqY5Zud95nEYTxBdAjFBEYm2EHz4OMIDGg3tIZpB78gdPDXmeFbq2B61ar8eqpvjkfeuLqsyYgj0Uka5qBEcMvV2ZqHLAGIlevQ53PdLPbF3mSA40EgdWkktSBLekRmdCTEUHYLOSYSYWz6R0EE+yPn6Tj45YyFk04bRl/kiaN24Yd/hsGbJvwzQxMCSyDHDlIDb8FetaVZ6NT0gWEOQaPEV8W+EyTteSbfVuN7sQrPr1dW4RDDI63brL7Jni4vQEvGyOURCpzbzlw4n5ZWYf/BtXz8MCatwMeMPLxF2z1sGkss3wrSq1aC/cKPFHNeAl0B+IVhMCaI+G2aMWd3odqcNimhakS9SyM89HHkoTerMv3HJUAGQgDFW0wyBuueEG9Oy21yiD2q1dFlfUFGvMQWQHdc9rQhnVGgj2ja/VoP4QeGizXcQ4Y="
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

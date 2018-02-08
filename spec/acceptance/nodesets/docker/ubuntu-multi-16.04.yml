@@ -1,0 +1,52 @@
+HOSTS:
+  ubuntu-1604-x64_r1:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - router1
+      - default
+    platform: ubuntu-16.04-amd64
+    hypervisor: docker
+    image: ubuntu:16.04
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'apt-get update'
+      - 'apt-get install -y net-tools wget dnsutils locales' 
+      - 'locale-gen en_US.UTF-8'
+      - 'sysctl net.ipv6.conf.all.disable_ipv6=0'
+  ubuntu-1604-x64_r2:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - router2
+    platform: ubuntu-16.04-amd64
+    hypervisor: docker
+    image: ubuntu:16.04
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'apt-get update'
+      - 'apt-get install -y net-tools wget dnsutils locales' 
+      - 'locale-gen en_US.UTF-8'
+      - 'sysctl net.ipv6.conf.all.disable_ipv6=0'
+  ubuntu-1604-x64_r3:
+    default_apply_opts:
+      strict_variables:
+    roles:
+      - router3
+    platform: ubuntu-16.04-amd64
+    hypervisor: docker
+    image: ubuntu:16.04
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'apt-get update'
+      - 'apt-get install -y net-tools wget dnsutils locales' 
+      - 'locale-gen en_US.UTF-8'
+      - 'sysctl net.ipv6.conf.all.disable_ipv6=0'
+CONFIG:
+  trace_limit: 200
+  masterless: true
+  #log_level: debug
+# vim: syntax=yaml

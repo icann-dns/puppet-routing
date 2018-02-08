@@ -1,0 +1,37 @@
+stages:
+  - lint
+  - rubocop
+  - rspec
+  - beaker_apply
+
+before_script:
+  - ruby -v
+  - bundle --version
+  - gem --version
+  - rm Gemfile.lock || true
+  - FACTER_GEM_VERSION="< 2.5" bundle install --path=${BUNDLE_PATH:-vendor/bundle}
+
+lint:
+  stage: lint
+  script:
+    - bundle exec rake validate lint
+
+rubocop:
+  stage: rubocop
+  script:
+    - bundle exec rake rubocop
+    
+rspec:
+  stage: rspec
+  variables:
+    FACTER_GEM_VERSION: '< 2.5'
+  script:
+    - bundle exec rake spec
+
+beaker:
+  stage: beaker_apply
+  variables:
+    BEAKER_set: multi-os
+    BEAKER_TESTMODE: apply
+  script:
+    - bundle exec rake beaker

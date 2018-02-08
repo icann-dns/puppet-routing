@@ -8,11 +8,14 @@ class routing (
   Array[Tea::Ipv6_cidr] $networks6                = [],
   Array[Tea::Ipv4_cidr] $failsafe_networks4       = [],
   Array[Tea::Ipv6_cidr] $failsafe_networks6       = [],
+  Array[Tea::Ipv4_cidr] $rejected_v4              = [],
+  Array[Tea::Ipv6_cidr] $rejected_v6              = [],
   Boolean               $failover_server          = false,
   Boolean               $enable_advertisements    = true,
   Boolean               $enable_advertisements_v4 = true,
   Boolean               $enable_advertisements_v6 = true,
   Boolean               $enable_nagios            = false,
+  Boolean               $fib_update               = true,
   Hash[Routing::Asn, Routing::Peer] $peers        = {},
 ) inherits routing::params {
 
@@ -22,7 +25,7 @@ class routing (
   }
 
   #The zone_status_errors fact comes from puppet-dns
-  if $::zone_status_errors == true or $::zone_status_errors == 'true' {
+  if defined('$::zone_status_errors') and ($::zone_status_errors == true or $::zone_status_errors == 'true') {
     $_failover_server = true
   } else {
     $_failover_server = $failover_server
@@ -35,10 +38,13 @@ class routing (
     networks6                => $networks6,
     failsafe_networks4       => $failsafe_networks4,
     failsafe_networks6       => $failsafe_networks6,
+    rejected_v4              => $rejected_v4,
+    rejected_v6              => $rejected_v6,
     failover_server          => $_failover_server,
     enable_advertisements    => $enable_advertisements,
     enable_advertisements_v4 => $enable_advertisements_v4,
     enable_advertisements_v6 => $enable_advertisements_v6,
+    fib_update               => $fib_update,
     peers                    => $peers,
   }
 
