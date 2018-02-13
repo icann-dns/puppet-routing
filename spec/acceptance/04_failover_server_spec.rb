@@ -23,6 +23,8 @@ describe 'openbgpd failover server' do
     class { '::routing':
       my_asn => #{router1_asn},
       router_id => '#{router1_ip}',
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router2_asn} => {
           'addr4' => ['#{router2_ip}'],
@@ -41,6 +43,8 @@ describe 'openbgpd failover server' do
       networks6 => [ '#{ipv6_network}'],
       failsafe_networks4 => [ '#{ipv4_failsafe_network}' ],
       failsafe_networks6 => [ '#{ipv6_failsafe_network}' ],
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       failover_server    => true,
       peers => {
         #{router1_asn} => {

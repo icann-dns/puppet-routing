@@ -41,6 +41,8 @@ describe 'routing class failsafe networks router' do
       networks6          => [ '#{ipv6_network}'],
       failsafe_networks4 => [ '#{ipv4_failsafe_network}' ],
       failsafe_networks6 => [ '#{ipv6_failsafe_network}' ],
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router1_asn} => {
           'addr4'       => ['#{router1_ip}'],

@@ -29,6 +29,8 @@ describe 'routing class multi peers' do
       router_id => '#{router1_ip}',
       networks4 => [ '#{ipv4_network}'],
       networks6 => [ '#{ipv6_network}'],
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router2_asn} => {
           'addr4' => ['#{router2_ip}'],
@@ -49,6 +51,8 @@ describe 'routing class multi peers' do
       router_id => '#{router2_ip}',
       networks4 => [ '#{ipv4_network}'],
       networks6 => [ '#{ipv6_network}'],
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router1_asn} => {
           'addr4' => ['#{router1_ip}'],
@@ -64,6 +68,8 @@ describe 'routing class multi peers' do
       router_id => '#{router3_ip}',
       networks4 => [ '#{ipv4_network}'],
       networks6 => [ '#{ipv6_network}'],
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router1_asn} => {
           'addr4' => ['#{router1_ip}'],
