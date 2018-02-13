@@ -23,6 +23,8 @@ describe 'routing class failsafe networks router' do
     class { '::routing':
       my_asn => #{router1_asn},
       router_id => '#{router1_ip}',
+      reject_bogons_v4 => false,
+      reject_bogons_v6 => false,
       peers => {
         #{router2_asn} => {
           'addr4'          => ['#{router2_ip}'],
