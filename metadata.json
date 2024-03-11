@@ -16,11 +16,7 @@
   "operatingsystem_support": [
     {
       "operatingsystem" : "Ubuntu",
-      "operatingsystemrelease" : [ "14.0.4", "16.04" ]
-    },
-    {
-      "operatingsystem" : "FreeBSD",
-      "operatingsystemrelease" : [ "10" ]
+      "operatingsystemrelease" : [ "18.04", "20.04" ]
     }
   ]
 }

@@ -49,16 +49,10 @@ describe 'routing' do
         facts.merge(zone_status_errors: false)
       end
 
-      case facts[:kernel]
-      when 'FreeBSD'
-        let(:routing_class) { 'openbgpd' }
-      else
-        let(:routing_class) { 'quagga::bgpd' }
-      end
+      let(:routing_class) { 'quagga::bgpd' }
 
       describe 'check default config' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('routing::params') }
         it do
           is_expected.to contain_class(routing_class).with(
             my_asn: 64_496,
@@ -145,6 +139,16 @@ describe 'routing' do
             )
           end
         end
+        context 'operational param' do
+          let(:params) { super().merge(operational: false) }
+
+          it { is_expected.to compile }
+          it do
+            is_expected.to contain_class(routing_class).with(
+              failover_server: true
+            )
+          end
+        end
         context 'enable_advertisements' do
           before { params.merge!(enable_advertisements: false) }
           it { is_expected.to compile }
@@ -171,10 +175,6 @@ describe 'routing' do
               enable_advertisements_v6: false
             )
           end
-        end
-        context 'enable_nagios' do
-          before { params.merge!(enable_nagios: true) }
-          it { is_expected.to compile }
         end
       end
       describe 'check bad type' do
