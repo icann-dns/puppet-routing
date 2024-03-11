@@ -1,6 +1,6 @@
 {
   "name": "puppet-routing",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "john.bond@icann.org",
   "summary": "meta package used as an unified interface to puppet-quagga and puppet-openbgpd",
   "license": "Apache-2.0",
