@@ -26,7 +26,7 @@ group :test do
   gem 'metadata-json-lint',                                         :require => false
   gem 'puppet-blacksmith',                                          :require => false
   gem 'pry',                                                        :require => false
-  gem 'voxpupuli-release',                                          :require => false, :git => 'https://github.com/voxpupuli/voxpupuli-release-gem'
+  gem 'voxpupuli-release', '~> 1.0',                                :require => false
   gem 'puppet-strings', '~> 1.0',                                   :require => false
   gem 'redcarpet',                                                  :require => false
   gem 'gettext-setup',                                              :require => false
@@ -76,7 +76,7 @@ else
   gem 'facter', :require => false, :groups => [:test]
 end
 
-ENV['PUPPET_VERSION'].nil? ? puppetversion = '~> 4.0' : puppetversion = ENV['PUPPET_VERSION'].to_s
+ENV['PUPPET_VERSION'].nil? ? puppetversion = '~> 6.0' : puppetversion = ENV['PUPPET_VERSION'].to_s
 gem 'puppet', puppetversion, :require => false, :groups => [:test]
 
 # vim: syntax=ruby
