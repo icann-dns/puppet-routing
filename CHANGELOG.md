@@ -1,3 +1,6 @@
+### 2024-03-11 0.3.2
+* Default to true on missing fact
+
 ### 2024-03-11 0.3.1
 * Handle missing fact
 

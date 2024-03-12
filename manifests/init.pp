@@ -41,7 +41,7 @@ class routing (
   # TODO: ensure zone_status_errors is a real bool
   $zone_status_errors = 'zone_status_errors' in $facts ? {
     true  => Boolean($facts['zone_status_errors']),
-    false => false,
+    false => true,  # We default to true if the fact is missing to support previous behaviour
   }
   if $zone_status_errors or !$operational {
     $_failover_server = true
