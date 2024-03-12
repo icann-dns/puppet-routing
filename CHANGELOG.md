@@ -1,3 +1,6 @@
+### 2024-03-11 0.3.1
+* Handle missing fact
+
 ### 2024-03-11 0.3.0
 * Add operational flag
 
