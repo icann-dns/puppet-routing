@@ -39,7 +39,11 @@ class routing (
 ) {
   # The zone_status_errors fact comes from puppet-dns and
   # TODO: ensure zone_status_errors is a real bool
-  if Boolean($facts['zone_status_errors']) or !$operational {
+  $zone_status_errors = 'zone_status_errors' in $facts ? {
+    true  => Boolean($facts['zone_status_errors']),
+    false => false,
+  }
+  if $zone_status_errors or !$operational {
     $_failover_server = true
   } else {
     $_failover_server = $failover_server
