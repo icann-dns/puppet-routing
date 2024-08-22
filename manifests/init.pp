@@ -49,6 +49,40 @@ class routing (
     $_failover_server = $failover_server
   }
 
+  $v4_adver = $enable_advertisements or $enable_advertisements_v4
+  $v6_adver = $enable_advertisements or $enable_advertisements_v6
+  $v4_formated = String($v4_adver).motd::ansi::fg($v4_adver.bool2str('green', 'red'))
+  $v6_formated = String($v6_adver).motd::ansi::fg($v6_adver.bool2str('green', 'red'))
+  $message = "BGP Addvertisments: IPv4: ${v4_formated} IPv6: ${v6_formated}"
+  $none_default_options = [
+    'communities', 'multihop', 'prepend', 'default_originate', 'inbound_routes',
+  ]
+  $none_default_peers = $peers.filter |$peer, $config| {
+    $none_default_options.any |$x| { $x in $config }
+  }
+  unless $none_default_peers.empty {
+    motd::message { '00_bgp':
+      message  => 'Extra BGP Config'.motd::ansi::attr('bold'),
+      priority => 22,
+    }
+    $none_default_peers.each |$peer, $config| {
+      $details = $config.delete(['addr4', 'addr6', 'desc']).map |$k, $v| {
+        $_v = $v ? {
+          Array   => $v.join(', '),
+          default => String($v),
+        }.motd::ansi::attr('bold')
+        "${k}: ${_v}"
+      }.join(' ')
+      motd::message { "01_BGP_${peer}":
+        message  => "ASN ${peer}: ${details}",
+        priority => 22,
+      }
+    }
+  }
+  motd::message { $message:
+    priority => 21,
+  }
+
   class { 'quagga::bgpd':
     my_asn                   => $my_asn,
     router_id                => $router_id,
