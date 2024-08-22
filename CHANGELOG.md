@@ -1,3 +1,6 @@
+### 2024-08-22 0.4.0
+* Add MOTD
+
 ### 2024-03-11 0.3.1
 * Handle missing fact
 
