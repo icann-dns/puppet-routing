@@ -2,6 +2,7 @@
 #
 # @param my_asn The local ASN number
 # @param router_id The router_id
+# @param daemon either frr or quagga
 # @param networks4 List of v4 networks to advertise
 # @param failsafe_networks4 List of v4 failsafe networks to advertise
 # @param networks6 List of v6 networks to advertise
@@ -19,8 +20,9 @@
 # @param fib_update update the local fib
 # @param peers A hash of peers
 class routing (
-  Routing::Asn          $my_asn,
+  Routing::Asn                         $my_asn,
   Stdlib::IP::Address::V4              $router_id,
+  Enum['quagga', 'frr']                $daemon                   = 'quagga',
   Array[Stdlib::IP::Address::V4::CIDR] $networks4                = [],
   Array[Stdlib::IP::Address::V6::CIDR] $networks6                = [],
   Array[Stdlib::IP::Address::V4::CIDR] $failsafe_networks4       = [],
@@ -83,7 +85,7 @@ class routing (
     priority => 21,
   }
 
-  class { 'quagga::bgpd':
+  class { "${daemon}::bgpd":
     my_asn                   => $my_asn,
     router_id                => $router_id,
     networks4                => $networks4,
