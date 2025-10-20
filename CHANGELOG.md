@@ -1,3 +1,6 @@
+### 2025-06-03 0.6.0
+* Add support for enforce first as
+
 ### 2025-06-03 0.5.0
 * Add support for frr
 
