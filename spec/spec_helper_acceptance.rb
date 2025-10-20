@@ -10,7 +10,6 @@ modules = [
   'puppetlabs-stdlib',
   'puppetlabs-concat',
   'puppetlabs-inifile',
-  'icann-tea',
   'puppet-logrotate'
 ]
 git_repos = []

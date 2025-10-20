@@ -4,7 +4,6 @@ fixtures:
     repositories:
       stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
       motd: https://github.com/icann-dns/puppet-motd.git
-      tea: https://github.com/icann-dns/puppet-tea.git
       concat: https://github.com/puppetlabs/puppetlabs-concat
       inifile: https://github.com/puppetlabs/puppetlabs-inifile
       logrotate: https://github.com/icann-dns/puppet-logrotate
