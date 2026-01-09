@@ -101,6 +101,6 @@ class routing (
     enable_advertisements_v4 => $enable_advertisements_v4,
     enable_advertisements_v6 => $enable_advertisements_v6,
     fib_update               => $fib_update,
-    peers                    => $peers,
+    peers                    => routing::inject_community($peers),
   }
 }
